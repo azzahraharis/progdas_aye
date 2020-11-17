@@ -158,7 +158,6 @@ int main(void)
         {
             
             fprintf(penunjuk_file,"| %d  |%-19s|%-18d|%-30s|%-11s|\n", j+1, kredit[j].matkul, kredit[j].jumlah, kredit[j].dosen, kredit[j].kelas);
-            s = s + kredit[j].jumlah;
         }
         fprintf(penunjuk_file, "\nTotal SKS = %d\n", s);
         fputs("------------------------------------------------------------\n", penunjuk_file);
