@@ -84,7 +84,9 @@ int main(void)
         printf("\nDATA BERHASIL DISIMPAN PADA data.txt");
         fclose(penunjuk_file);
     }
-    else if(menu == 2)
+    
+    
+    else if(menu == 2)//data KRS
     {
         char nama_mahasiswa [255], prodi[30], nim[30];
         int s = 0, j;
@@ -107,7 +109,7 @@ int main(void)
             char kelas [5];
         } kredit[cc];
 
-        for (j=0; j<cc; j++)
+        for (j = 0; j < cc; j++)
             { 
                 printf ("Masukkan Nama Matkul %d : ", j+1);
                 scanf ("%s", &kredit[j].matkul);
@@ -127,7 +129,8 @@ int main(void)
         printf("----------------------------------------------------------------------------------------\n");
         printf("| NO |    NAMA MATKUL    |    JUMLAH SKS    |        DOSEN PENGAMPU        |   KELAS   |\n");
         printf("----------------------------------------------------------------------------------------\n");
-        for (j=0; j<cc; j++)
+        
+        for (j = 0; j < cc; j++)
         {
             printf("| %d  |%-19s|%-18d|%-30s|%-11s|\n", j+1, kredit[j].matkul, kredit[j].jumlah, kredit[j].dosen, kredit[j].kelas);
             s = s + kredit[j].jumlah;
@@ -135,12 +138,39 @@ int main(void)
         
         printf ("\nTotal SKS = %d", s);
 
+        FILE *penunjuk_file;
+        penunjuk_file = fopen("data.txt", "w");
+
+        if (penunjuk_file == NULL)
+        {
+            printf("file tidak ada!!! \n");
+            exit(1);
+        }
+
+        fprintf(penunjuk_file, "Nama   : %-30s\n", &nama_mahasiswa[255]);
+        fprintf(penunjuk_file, "Prodi  : %-30s\n", &prodi[30]);
+        fprintf(penunjuk_file, "NIM    : %-30s\n\n", &nim[30]);
+        fputs("----------------------------------------------------------------------------------------\n", penunjuk_file);
+        fputs("| NO |    NAMA MATKUL    |    JUMLAH SKS    |        DOSEN PENGAMPU        |   KELAS   |\n", penunjuk_file);
+        fputs("----------------------------------------------------------------------------------------\n", penunjuk_file);
+        
+        for(j = 0; j < cc; j++)
+        {
+            fprintf(penunjuk_file,"| %d  |%-19s|%-18d|%-30s|%-11s|\n", j+1, kredit[j].matkul, kredit[j].jumlah, kredit[j].dosen, kredit[j].kelas);
+        }
+        
+        fprintf(penunjuk_file, "\nTotal SKS = %d", s);
+        fputs("\n------------------------------------------------------------\n", penunjuk_file);
+        printf("\nDATA BERHASIL DISIMPAN PADA data.txt");
+        fclose(penunjuk_file);
     }
+    
+    
     else
     {
         exit(0);
     }
     
-    
+
     return 0;
 }
